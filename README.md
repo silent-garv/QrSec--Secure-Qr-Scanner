@@ -101,4 +101,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-Project Link: [https://github.com/silent-garv/SECURE_QR](https://github.com/silent-garv/SECURE_QR)
+Project Link: [https://github.com/silent-garv/SECURE_QR](https://github.com/silent-garv/Frontend_QrSec/tree/main)
