@@ -1,6 +1,8 @@
-const API_URL = import.meta.env.PROD
-  ? '/api/chat'  // Will be handled by Vercel routing
-  : 'http://localhost:3000/api/chat';
+// Prefer an explicit backend URL in production via VITE_API_URL. If not provided,
+// fall back to a same-origin serverless route (`/api/chat`) when deployed together,
+// or localhost in development.
+const API_URL = import.meta.env.VITE_API_URL
+  ?? (import.meta.env.PROD ? '/api/chat' : 'http://localhost:3000/api/chat');
 
 export async function sendMessage(message: string): Promise<string> {
   try {
