@@ -1,8 +1,8 @@
-// Prefer an explicit backend URL in production via VITE_API_URL. If not provided,
-// fall back to a same-origin serverless route (`/api/chat`) when deployed together,
-// or localhost in development.
-const API_URL = import.meta.env.VITE_API_URL
-  ?? (import.meta.env.PROD ? '/api/chat' : 'http://localhost:3000/api/chat');
+// In production, use the backend URL. In development, use localhost.
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'https://qr-scan-shield-backend.vercel.app';
+const API_URL = import.meta.env.PROD
+  ? `${BACKEND_URL}/api/chat`
+  : 'http://localhost:3000/api/chat';
 
 export async function sendMessage(message: string): Promise<string> {
   try {
