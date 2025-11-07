@@ -1,10 +1,6 @@
-const BACKEND_URLS = {
-  development: 'http://localhost:3000',
-  production: 'https://qr-scan-shield-backend.vercel.app'
-};
-
-const baseUrl = BACKEND_URLS[import.meta.env.MODE] || BACKEND_URLS.production;
-const API_URL = `${baseUrl}/api/chat`;
+const API_URL = import.meta.env.PROD
+  ? '/api/chat'  // Will be handled by Vercel routing
+  : 'http://localhost:3000/api/chat';
 
 export async function sendMessage(message: string): Promise<string> {
   try {
@@ -12,31 +8,16 @@ export async function sendMessage(message: string): Promise<string> {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
       },
-      credentials: 'omit', // Don't send credentials for cross-origin requests
       body: JSON.stringify({ message }),
     });
 
-    console.log('Response status:', response.status);
-    const contentType = response.headers.get('content-type');
-    console.log('Content-Type:', contentType);
-
     if (!response.ok) {
-      let errorText;
-      try {
-        const errorData = await response.json();
-        errorText = errorData.error || `Server error: ${response.status}`;
-      } catch (e) {
-        errorText = `Failed to get response: ${response.status}`;
-      }
-      throw new Error(errorText);
+      const error = await response.json().catch(() => null);
+      throw new Error(error?.error || `Failed to get response: ${response.status}`);
     }
 
     const data = await response.json();
-    if (!data || typeof data.response !== 'string') {
-      throw new Error('Invalid response format from server');
-    }
     return data.response;
   } catch (error) {
     console.error('Error sending message:', error);
