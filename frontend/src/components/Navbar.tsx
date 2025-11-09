@@ -96,9 +96,33 @@ const Navbar = () => {
           <div className="flex items-center gap-4">
             <Link to="/" className="font-semibold text-lg brand">QrSec</Link>
             <nav className="hidden sm:flex gap-2">
-              <Link to="/scan" className="text-sm nav-link hover:opacity-90">Scan</Link>
+              <Button 
+                variant="link" 
+                className="text-sm nav-link hover:opacity-90 p-0 h-auto"
+                onClick={() => {
+                  if (!user) {
+                    navigate('/login', { state: { from: '/scan' } });
+                  } else {
+                    navigate('/scan');
+                  }
+                }}
+              >
+                Scan
+              </Button>
               <Link to="/dashboard" className="text-sm nav-link hover:opacity-90">Dashboard</Link>
-              <Link to="/learn" className="text-sm nav-link hover:opacity-90">Security Guide</Link>
+              <Button 
+                variant="link" 
+                className="text-sm nav-link hover:opacity-90 p-0 h-auto"
+                onClick={() => {
+                  if (!user) {
+                    navigate('/login', { state: { from: '/learn' } });
+                  } else {
+                    navigate('/learn');
+                  }
+                }}
+              >
+                Security Guide
+              </Button>
             </nav>
           </div>
 
@@ -174,9 +198,35 @@ const Navbar = () => {
       {menuOpen && (
         <div className="sm:hidden border-t border-border/50 header-navbar">
           <div className="px-4 pt-3 pb-4 space-y-2">
-            <Link to="/scan" onClick={() => setMenuOpen(false)} className="block text-sm nav-link hover:opacity-90">Scan</Link>
+            <Button 
+              variant="link" 
+              className="block text-sm nav-link hover:opacity-90 p-0 h-auto w-full text-left"
+              onClick={() => {
+                setMenuOpen(false);
+                if (!user) {
+                  navigate('/login', { state: { from: '/scan' } });
+                } else {
+                  navigate('/scan');
+                }
+              }}
+            >
+              Scan
+            </Button>
             <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="block text-sm nav-link hover:opacity-90">Dashboard</Link>
-            <Link to="/learn" onClick={() => setMenuOpen(false)} className="block text-sm nav-link hover:opacity-90">Security Guide</Link>
+            <Button 
+              variant="link" 
+              className="block text-sm nav-link hover:opacity-90 p-0 h-auto w-full text-left"
+              onClick={() => {
+                setMenuOpen(false);
+                if (!user) {
+                  navigate('/login', { state: { from: '/learn' } });
+                } else {
+                  navigate('/learn');
+                }
+              }}
+            >
+              Security Guide
+            </Button>
             <div className="pt-2">
               {user ? (
                 <>
