@@ -30,7 +30,6 @@ export async function sendMessage(message: string): Promise<string> {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      credentials: 'include',
       mode: 'cors',
       body: JSON.stringify({ message }),
     });
